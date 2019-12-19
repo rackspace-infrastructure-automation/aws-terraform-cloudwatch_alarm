@@ -1,12 +1,13 @@
 /**
  * # aws-terraform-cloudwatch_alarm
+ *
  *This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
  *
  *## Basic Usage
  *
- *```
+ *```HCL
  *module "alarm" {
- *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.1"
+ *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.0"
  *
  *  alarm_description        = "High CPU usage."
  *  alarm_name               = "MyCloudWatchAlarm"
@@ -14,7 +15,7 @@
  *  customer_alarms_enabled  = true
  *  evaluation_periods       = 5
  *  metric_name              = "CPUUtilization"
- *  notification_topic       = ["${var.notification_topic}"]
+ *  notification_topic       = [var.notification_topic]
  *  namespace                = "AWS/EC2"
  *  period                   = 60
  *  rackspace_alarms_enabled = true
@@ -30,6 +31,10 @@
  *```
  *
  * Full working references are available at [examples](examples)
+ *
+ *## Terraform 0.12 upgrade
+ *
+ *There should be no changes required to move from previous versions of this module to version 0.12.0 or higher.
  *
  */
 

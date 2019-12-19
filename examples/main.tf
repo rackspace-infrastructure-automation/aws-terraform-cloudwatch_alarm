@@ -8,39 +8,43 @@ provider "aws" {
 }
 
 module "vpc" {
-  source   = "git@github.com:rackspace-infrastructure-automation/aws-terraform-vpc_basenetwork?ref=v0.0.6"
-  vpc_name = "EC2-AR-BaseNetwork-Test1"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-vpc_basenetwork?ref=v0.12.0"
+
+  name = "EC2-AR-BaseNetwork-Test1"
 }
 
 module "customer_notifications" {
-  source     = "git@github.com:rackspace-infrastructure-automation/aws-terraform-sns//?ref=v0.0.2"
-  topic_name = "my-notification-topic"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-sns//?ref=v0.12.0"
+
+  name = "my-notification-topic"
 }
 
 module "ec2_ar1" {
-  source              = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.0.9"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.12.0"
+
   ec2_os              = "amazon2"
-  subnets             = module.vpc.private_subnets
-  security_group_list = [module.vpc.default_sg]
   instance_type       = "t2.micro"
-  resource_name       = "test_amazon"
+  name                = "test_amazon"
+  security_group_list = [module.vpc.default_sg]
+  subnets             = module.vpc.private_subnets
 }
 
 module "ec2_ar2" {
-  source              = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.0.9"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.12.0"
+
   ec2_os              = "ubuntu16"
   instance_count      = "2"
-  subnets             = module.vpc.private_subnets
-  security_group_list = [module.vpc.default_sg]
   instance_type       = "t2.micro"
-  resource_name       = "test_ubuntu"
+  name                = "test_ubuntu"
+  security_group_list = [module.vpc.default_sg]
+  subnets             = module.vpc.private_subnets
 }
 
 ######################################
 # CWAlarm to create Rackspace Ticket #
 ######################################
 module "ar1_cpu_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.1"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.0"
 
   alarm_description        = "High CPU Usage on AR1."
   alarm_name               = "CPUAlarmHigh-AR1"
@@ -65,7 +69,7 @@ module "ar1_cpu_alarm" {
 # CWAlarm to notify customer #
 ##############################
 module "ar1_network_out_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.1"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.0"
 
   alarm_description       = "High Outbound Network traffic > 1MBps."
   alarm_name              = "NetworkOutAlarmHigh-AR1"
@@ -101,7 +105,7 @@ data "null_data_source" "alarm_dimensions" {
 }
 
 module "ar2_disk_usage_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.1"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.0"
 
   alarm_count              = "2"
   alarm_description        = "High Disk usage."
