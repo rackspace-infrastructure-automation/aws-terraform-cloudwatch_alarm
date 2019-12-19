@@ -63,11 +63,9 @@ locals {
   }
 }
 
-data "aws_caller_identity" "current" {
-}
+data "aws_caller_identity" "current" {}
 
-data "aws_region" "current" {
-}
+data "aws_region" "current" {}
 
 resource "aws_cloudwatch_metric_alarm" "alarm" {
   count = var.alarm_count
@@ -84,33 +82,13 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   threshold           = var.threshold
   unit                = var.unit
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
-  alarm_actions = [
-    concat(
-      local.rackspace_alarm_actions[local.rackspace_alarm_config],
-      local.customer_alarm_actions[local.customer_alarm_config],
-    ),
-  ]
+  alarm_actions = concat(
+    local.rackspace_alarm_actions[local.rackspace_alarm_config],
+    local.customer_alarm_actions[local.customer_alarm_config],
+  )
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
-  ok_actions = [
-    concat(
-      local.rackspace_alarm_actions[local.rackspace_alarm_config],
-      local.customer_alarm_actions[local.customer_ok_config],
-    ),
-  ]
+  ok_actions = concat(
+    local.rackspace_alarm_actions[local.rackspace_alarm_config],
+    local.customer_alarm_actions[local.customer_ok_config],
+  )
 }
