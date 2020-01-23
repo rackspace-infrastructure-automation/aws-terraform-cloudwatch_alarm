@@ -19,23 +19,30 @@ module "customer_notifications" {
   topic_name = "CWAlarm-Test-${random_string.rstring.result}"
 }
 
-module "ec2_ar1" {
-  source              = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=master"
-  ec2_os              = "amazon2"
-  subnets             = "${module.vpc.private_subnets}"
-  security_group_list = ["${module.vpc.default_sg}"]
-  instance_type       = "t2.micro"
-  resource_name       = "CWAlarm-Test1-${random_string.rstring.result}"
+data "aws_ami" "cent7" {
+  most_recent = true
+  owners      = ["679593333241"]
+
+  filter {
+    name   = "name"
+    values = ["CentOS Linux 7 x86_64 HVM EBS*"]
+  }
 }
 
-module "ec2_ar2" {
-  source              = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=master"
-  ec2_os              = "ubuntu16"
-  instance_count      = "2"
-  subnets             = "${module.vpc.private_subnets}"
-  security_group_list = ["${module.vpc.default_sg}"]
-  instance_type       = "t2.micro"
-  resource_name       = "CWAlarm-Test2-${random_string.rstring.result}"
+resource "aws_instance" "ar1" {
+  ami                    = "${data.aws_ami.cent7.id}"
+  instance_type          = "t2.micro"
+  subnet_id              = "${module.vpc.private_subnets[0]}"
+  vpc_security_group_ids = ["${module.vpc.default_sg}"]
+}
+
+resource "aws_instance" "ar2" {
+  count = 2
+
+  ami                    = "${data.aws_ami.cent7.id}"
+  instance_type          = "t2.micro"
+  subnet_id              = "${module.vpc.private_subnets[1]}"
+  vpc_security_group_ids = ["${module.vpc.default_sg}"]
 }
 
 ######################################
@@ -56,7 +63,7 @@ module "ar1_cpu_alarm" {
   threshold                = 90
 
   dimensions = [{
-    InstanceId = "${element(module.ec2_ar1.ar_instance_id_list, 0)}"
+    InstanceId = "${aws_instance.ar1.id}"
   }]
 }
 
@@ -79,7 +86,7 @@ module "ar1_network_out_alarm" {
   threshold               = 60000000
 
   dimensions = [{
-    InstanceId = "${element(module.ec2_ar1.ar_instance_id_list, 0)}"
+    InstanceId = "${aws_instance.ar1.id}"
   }]
 }
 
@@ -90,7 +97,7 @@ data "null_data_source" "alarm_dimensions" {
   count = 2
 
   inputs = {
-    InstanceId = "${element(module.ec2_ar2.ar_instance_id_list, count.index)}"
+    InstanceId = "${element(aws_instance.ar2.*.id, count.index)}"
     device     = "xvda1"
     fstype     = "ext4"
     path       = "/"
