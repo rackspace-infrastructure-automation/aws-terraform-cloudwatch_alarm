@@ -1,21 +1,21 @@
 /**
  * # aws-terraform-cloudwatch_alarm
- *
- *This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
- *
- *## Basic Usage
- *
- *```HCL
- *module "alarm" {
- *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.0"
+ * 
+ * This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
+ * 
+ * ## Basic Usage
+ * 
+ * ```HCL
+ * module "alarm" {
+ *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.1"
  *
  *  alarm_description        = "High CPU usage."
- *  alarm_name               = "MyCloudWatchAlarm"
  *  comparison_operator      = "GreaterThanThreshold"
  *  customer_alarms_enabled  = true
  *  evaluation_periods       = 5
  *  metric_name              = "CPUUtilization"
  *  notification_topic       = [var.notification_topic]
+ *  name                     = "MyCloudWatchAlarm"
  *  namespace                = "AWS/EC2"
  *  period                   = 60
  *  rackspace_alarms_enabled = true
@@ -27,16 +27,27 @@
  *  dimension {
  *    InstanceId = "i-123456"
  *  }
- *}
- *```
+ * }
+ * ```
  *
  * Full working references are available at [examples](examples)
  *
- *## Terraform 0.12 upgrade
+ * ## Terraform 0.12 upgrade
  *
- *There should be no changes required to move from previous versions of this module to version 0.12.0 or higher.
- *
- */
+ * There should be no changes required to move from previous versions of this module to version 0.12.0 or higher.
+ * ## Module variables
+* 
+* The following module variables changes have occurred:
+* 
+* #### Deprecations
+* - `alarm_name` - marked for deprecation as it no longer meets our style guide standards.
+* 
+* #### Additions
+* - `name` - introduced as a replacement for `alarm_name` to better align with our style guide standards.
+* 
+* #### Removals
+* - None
+*/
 
 terraform {
   required_version = ">= 0.12"
@@ -47,6 +58,8 @@ terraform {
 }
 
 locals {
+  # favor name over alarm name if both are set
+  alarm_name             = var.name != "" ? var.name : var.alarm_name
   rackspace_alarm_config = var.rackspace_alarms_enabled && var.rackspace_managed ? "enabled" : "disabled"
   customer_alarm_config  = var.customer_alarms_enabled || false == var.rackspace_managed ? "enabled" : "disabled"
   customer_ok_config     = var.customer_alarms_cleared && var.customer_alarms_enabled || false == var.rackspace_managed ? "enabled" : "disabled"
@@ -76,7 +89,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   count = var.alarm_count
 
   alarm_description   = var.alarm_description
-  alarm_name          = var.alarm_count > 1 ? format("%v-%03d", var.alarm_name, count.index + 1) : var.alarm_name
+  alarm_name          = var.alarm_count > 1 ? format("%v-%03d", local.alarm_name, count.index + 1) : local.alarm_name
   comparison_operator = var.comparison_operator
   dimensions          = var.dimensions[count.index]
   evaluation_periods  = var.evaluation_periods

@@ -11,8 +11,9 @@ variable "alarm_description" {
 }
 
 variable "alarm_name" {
-  description = "The descriptive name for the alarm. This name must be unique within the user's AWS account"
+  description = " The descriptive name for the alarm. This name must be unique within the user's AWS account. [**Deprecated** in favor of `name`]. It will be removed in future releases. `name` supercedes the `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value."
   type        = string
+  default     = ""
 }
 
 variable "comparison_operator" {
@@ -45,6 +46,12 @@ variable "evaluation_periods" {
 variable "metric_name" {
   description = "The name for the alarm's associated metric. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html for supported metrics."
   type        = string
+}
+
+variable "name" {
+  description = "The descriptive name for the alarm. This name must be unique within the user's AWS account. `name` supercedes the deprecated `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value."
+  type        = string
+  default     = ""
 }
 
 variable "namespace" {
