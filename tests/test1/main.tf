@@ -25,18 +25,18 @@ module "customer_notifications" {
   name = "CWAlarm-Test-${random_string.rstring.result}"
 }
 
-data "aws_ami" "cent7" {
+data "aws_ami" "ubuntu18" {
   most_recent = true
-  owners      = ["679593333241"]
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["CentOS Linux 7 x86_64 HVM EBS*"]
+    values = ["ubuntu/images/hvm-ssd/*ubuntu-bionic-18.04-amd64-server*"]
   }
 }
 
 resource "aws_instance" "ar1" {
-  ami                    = data.aws_ami.cent7.id
+  ami                    = data.aws_ami.ubuntu18.id
   instance_type          = "t2.micro"
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [module.vpc.default_sg]
@@ -45,7 +45,7 @@ resource "aws_instance" "ar1" {
 resource "aws_instance" "ar2" {
   count = 2
 
-  ami                    = data.aws_ami.cent7.id
+  ami                    = data.aws_ami.ubuntu18.id
   instance_type          = "t2.micro"
   subnet_id              = module.vpc.private_subnets[1]
   vpc_security_group_ids = [module.vpc.default_sg]
