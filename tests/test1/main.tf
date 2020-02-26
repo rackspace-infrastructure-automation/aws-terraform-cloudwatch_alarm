@@ -58,10 +58,10 @@ module "ar1_cpu_alarm" {
   source = "../../module"
 
   alarm_description        = "High CPU Usage on AR1."
-  alarm_name               = "CPUAlarmHigh-AR1-${random_string.rstring.result}"
   comparison_operator      = "GreaterThanThreshold"
   evaluation_periods       = 10
   metric_name              = "CPUUtilization"
+  name                     = "CPUAlarmHigh-AR1-${random_string.rstring.result}"
   namespace                = "AWS/EC2"
   period                   = 60
   rackspace_alarms_enabled = true
@@ -82,11 +82,11 @@ module "ar1_network_out_alarm" {
   source = "../../module"
 
   alarm_description       = "High Outbound Network traffic > 1MBps."
-  alarm_name              = "NetworkOutAlarmHigh-AR1-${random_string.rstring.result}"
   customer_alarms_enabled = true
   comparison_operator     = "GreaterThanThreshold"
   evaluation_periods      = 10
   metric_name             = "NetworkOut"
+  name                    = "NetworkOutAlarmHigh-AR1-${random_string.rstring.result}"
   namespace               = "AWS/EC2"
   notification_topic      = [module.customer_notifications.topic_arn]
   period                  = 60
@@ -117,13 +117,13 @@ data "null_data_source" "alarm_dimensions" {
 module "ar2_disk_usage_alarm" {
   source = "../../module"
 
-  alarm_count              = "2"
+  alarm_count              = 2
   alarm_description        = "High Disk usage."
-  alarm_name               = "HighDiskUsageAlarm-AR2-${random_string.rstring.result}"
   comparison_operator      = "GreaterThanOrEqualToThreshold"
   dimensions               = data.null_data_source.alarm_dimensions.*.outputs
   evaluation_periods       = 30
   metric_name              = "disk_used_percent"
+  name                     = "HighDiskUsageAlarm-AR2-${random_string.rstring.result}"
   namespace                = "System/Linux"
   period                   = 60
   rackspace_alarms_enabled = true
