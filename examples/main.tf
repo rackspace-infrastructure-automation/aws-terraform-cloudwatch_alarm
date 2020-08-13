@@ -22,22 +22,22 @@ module "customer_notifications" {
 module "ec2_ar1" {
   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.12.4"
 
-  ec2_os              = "amazon2"
-  instance_type       = "t2.micro"
-  name                = "test_amazon"
-  security_group_list = [module.vpc.default_sg]
-  subnets             = module.vpc.private_subnets
+  ec2_os          = "amazon2"
+  instance_type   = "t2.micro"
+  name            = "test_amazon"
+  security_groups = [module.vpc.default_sg]
+  subnets         = module.vpc.private_subnets
 }
 
 module "ec2_ar2" {
   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-ec2_autorecovery?ref=v0.12.4"
 
-  ec2_os              = "ubuntu16"
-  instance_count      = 2
-  instance_type       = "t2.micro"
-  name                = "test_ubuntu"
-  security_group_list = [module.vpc.default_sg]
-  subnets             = module.vpc.private_subnets
+  ec2_os          = "ubuntu16"
+  instance_count  = 2
+  instance_type   = "t2.micro"
+  name            = "test_ubuntu"
+  security_groups = [module.vpc.default_sg]
+  subnets         = module.vpc.private_subnets
 }
 
 ######################################
