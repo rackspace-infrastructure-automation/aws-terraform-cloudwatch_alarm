@@ -1,33 +1,33 @@
 /**
  * # aws-terraform-cloudwatch_alarm
- *This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
+ * This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
  *
- *## Basic Usage
+ * ## Basic Usage
  *
- *```
- *module "alarm" {
- *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.1"
+ * ```
+ * module "alarm" {
+ *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.0.2"
  *
- *  alarm_description        = "High CPU usage."
- *  alarm_name               = "MyCloudWatchAlarm"
- *  comparison_operator      = "GreaterThanThreshold"
- *  customer_alarms_enabled  = true
- *  evaluation_periods       = 5
- *  metric_name              = "CPUUtilization"
- *  notification_topic       = ["${var.notification_topic}"]
- *  namespace                = "AWS/EC2"
- *  period                   = 60
- *  rackspace_alarms_enabled = true
- *  rackspace_managed        = true
- *  severity                 = "urgent"
- *  statistic                = "Average"
- *  threshold                = 90
+ *   alarm_description        = "High CPU usage."
+ *   alarm_name               = "MyCloudWatchAlarm"
+ *   comparison_operator      = "GreaterThanThreshold"
+ *   customer_alarms_enabled  = true
+ *   evaluation_periods       = 5
+ *   metric_name              = "CPUUtilization"
+ *   notification_topic       = ["${var.notification_topic}"]
+ *   namespace                = "AWS/EC2"
+ *   period                   = 60
+ *   rackspace_alarms_enabled = true
+ *   rackspace_managed        = true
+ *   severity                 = "urgent"
+ *   statistic                = "Average"
+ *   threshold                = 90
  *
- *  dimension {
- *    InstanceId = "i-123456"
- *  }
- *}
- *```
+ *   dimension {
+ *     InstanceId = "i-123456"
+ *   }
+ * }
+ * ```
  *
  * Full working references are available at [examples](examples)
  *
@@ -74,6 +74,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   period              = "${var.period}"
   statistic           = "${var.statistic}"
   threshold           = "${var.threshold}"
+  treat_missing_data  = "${var.treat_missing_data}"
   unit                = "${var.unit}"
 
   alarm_actions = ["${concat(local.rackspace_alarm_actions[local.rackspace_alarm_config],

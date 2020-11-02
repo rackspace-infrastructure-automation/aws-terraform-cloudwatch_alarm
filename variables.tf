@@ -93,6 +93,12 @@ variable "threshold" {
   type        = "string"
 }
 
+variable "treat_missing_data" {
+  description = "Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing"
+  type        = "string"
+  default     = "missing"
+}
+
 variable "unit" {
   description = "The unit for the alarm's associated metric"
   type        = "string"
