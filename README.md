@@ -6,7 +6,7 @@ This module deploys a customized CloudWatch Alarm, for use in generating custome
 
 ```HCL
 module "alarm" {
- source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.1"
+ source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.4"
 
  alarm_description        = "High CPU usage."
  comparison_operator      = "GreaterThanThreshold"
@@ -75,6 +75,7 @@ The following module variables changes have occurred:
 | severity | The desired severity of the created Rackspace ticket.  Supported values include: standard, urgent, emergency | `string` | `"standard"` | no |
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
 | threshold | The value against which the specified statistic is compared. | `string` | n/a | yes |
+| treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
 | unit | The unit for the alarm's associated metric | `string` | `""` | no |
 
 ## Outputs
