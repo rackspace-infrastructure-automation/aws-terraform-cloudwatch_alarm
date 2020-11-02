@@ -130,4 +130,5 @@ module "ar2_disk_usage_alarm" {
   severity                 = "standard"
   statistic                = "Average"
   threshold                = 80
+  treat_missing_data       = "notBreaching"
 }
