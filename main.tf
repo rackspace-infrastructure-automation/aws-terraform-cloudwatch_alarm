@@ -97,7 +97,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   namespace           = var.namespace
   period              = var.period
   statistic           = var.statistic
-  threshold           = length(var.thresholds) == 0 ? var.threshold : var.thresholds
+  threshold           = length(var.thresholds) == 0 ? var.threshold : var.thresholds[count.index]
   treat_missing_data  = var.treat_missing_data
   unit                = var.unit
 
