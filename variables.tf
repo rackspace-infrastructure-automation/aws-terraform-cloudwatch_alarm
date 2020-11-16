@@ -104,6 +104,7 @@ variable "statistic" {
 variable "threshold" {
   description = "The value against which the specified statistic is compared. [**Deprecated** in favor of `name`]. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value."
   type        = string
+  default     = ""
 }
 
 variable "thresholds" {
