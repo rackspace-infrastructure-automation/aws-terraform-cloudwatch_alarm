@@ -76,7 +76,7 @@ The following module variables changes have occurred:
 | severity | The desired severity of the created Rackspace ticket.  Supported values include: standard, urgent, emergency | `string` | `"standard"` | no |
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
 | threshold | The value against which the specified statistic is compared. [**Deprecated** in favor of `name`]. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | n/a | yes |
-| thresholds | The values against which the specified statistic is compared per alarm. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | n/a | yes |
+| thresholds | The values against which the specified statistic is compared per alarm. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | `[]` | no |
 | treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
 | unit | The unit for the alarm's associated metric | `string` | `""` | no |
 
