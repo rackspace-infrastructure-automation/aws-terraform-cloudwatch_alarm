@@ -54,6 +54,12 @@ variable "name" {
   default     = ""
 }
 
+variable "name_suffixes" {
+  description = "Used to better distinguish similar alarms by replace 001 etc with given suffix."
+  type        = list(string)
+  default     = []
+}
+
 variable "namespace" {
   description = "The namespace for the alarm's associated metric. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html for the list of namespaces."
   type        = string
@@ -96,7 +102,12 @@ variable "statistic" {
 }
 
 variable "threshold" {
-  description = "The value against which the specified statistic is compared."
+  description = "The value against which the specified statistic is compared. [**Deprecated** in favor of `name`]. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value."
+  type        = string
+}
+
+variable "thresholds" {
+  description = "The values against which the specified statistic is compared per alarm. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value."
   type        = string
 }
 
