@@ -109,5 +109,5 @@ variable "treat_missing_data" {
 variable "unit" {
   description = "The unit for the alarm's associated metric"
   type        = string
-  default     = ""
+  default     = null
 }

@@ -76,7 +76,7 @@ The following module variables changes have occurred:
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
 | threshold | The value against which the specified statistic is compared. | `string` | n/a | yes |
 | treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
-| unit | The unit for the alarm's associated metric | `string` | `""` | no |
+| unit | The unit for the alarm's associated metric | `string` | n/a | yes |
 
 ## Outputs
 
