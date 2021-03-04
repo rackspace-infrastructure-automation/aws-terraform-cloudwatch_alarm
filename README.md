@@ -47,16 +47,35 @@ The following module variables changes have occurred:
 #### Removals
 - None
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+| aws | >= 2.7.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | aws | >= 2.7.0 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/2.7.0/docs/data-sources/caller_identity) |
+| [aws_cloudwatch_metric_alarm](https://registry.terraform.io/providers/hashicorp/aws/2.7.0/docs/resources/cloudwatch_metric_alarm) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/2.7.0/docs/data-sources/region) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | alarm\_count | The number of alarms to create. | `number` | `1` | no |
 | alarm\_description | The description for the alarm. | `string` | `""` | no |
 | alarm\_name | The descriptive name for the alarm. This name must be unique within the user's AWS account. [**Deprecated** in favor of `name`]. It will be removed in future releases. `name` supercedes the `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | `""` | no |
@@ -76,11 +95,10 @@ The following module variables changes have occurred:
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
 | threshold | The value against which the specified statistic is compared. | `string` | n/a | yes |
 | treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
-| unit | The unit for the alarm's associated metric | `string` | n/a | yes |
+| unit | The unit for the alarm's associated metric | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | alarm\_id | List of created alarm names |
-
