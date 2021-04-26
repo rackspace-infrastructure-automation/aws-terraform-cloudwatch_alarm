@@ -44,7 +44,7 @@ module "ec2_ar2" {
 # CWAlarm to create Rackspace Ticket #
 ######################################
 module "ar1_cpu_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.4"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
 
   alarm_description        = "High CPU Usage on AR1."
   name                     = "CPUAlarmHigh-AR1"
@@ -69,7 +69,7 @@ module "ar1_cpu_alarm" {
 # CWAlarm to notify customer #
 ##############################
 module "ar1_network_out_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.4"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
 
   alarm_description       = "High Outbound Network traffic > 1MBps."
   name                    = "NetworkOutAlarmHigh-AR1"
@@ -105,7 +105,7 @@ data "null_data_source" "alarm_dimensions" {
 }
 
 module "ar2_disk_usage_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.4"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
 
   alarm_count              = "2"
   alarm_description        = "High Disk usage."
