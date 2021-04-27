@@ -119,6 +119,7 @@ module "ar2_disk_usage_alarm" {
 
   alarm_count              = 2
   alarm_description        = "High Disk usage."
+  name_suffixes            = ["diska", "diskb"]
   comparison_operator      = "GreaterThanOrEqualToThreshold"
   dimensions               = data.null_data_source.alarm_dimensions.*.outputs
   evaluation_periods       = 30
@@ -129,6 +130,6 @@ module "ar2_disk_usage_alarm" {
   rackspace_alarms_enabled = true
   severity                 = "standard"
   statistic                = "Average"
-  threshold                = 80
+  thresholds               = [80, 70]
   treat_missing_data       = "notBreaching"
 }
