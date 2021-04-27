@@ -7,7 +7,7 @@
  *
  * ```HCL
  * module "alarm" {
- *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.4"
+ *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
  *
  *  alarm_description        = "High CPU usage."
  *  comparison_operator      = "GreaterThanThreshold"
