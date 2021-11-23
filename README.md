@@ -30,16 +30,32 @@ module "alarm" {
 
 Full working references are available at [examples](examples)
 
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | aws | n/a |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) |
+| [aws_cloudwatch_metric_alarm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | alarm\_count | The number of alarms to create. | `string` | `1` | no |
 | alarm\_description | The description for the alarm. | `string` | `""` | no |
 | alarm\_name | The descriptive name for the alarm. This name must be unique within the user's AWS account | `string` | n/a | yes |
@@ -65,4 +81,3 @@ Full working references are available at [examples](examples)
 | Name | Description |
 |------|-------------|
 | alarm\_id | List of created alarm names |
-
