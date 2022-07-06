@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13"
 }
 
 provider "aws" {
@@ -69,7 +69,7 @@ module "ar1_cpu_alarm" {
 # CWAlarm to notify customer #
 ##############################
 module "ar1_network_out_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.13.2"
 
   alarm_description       = "High Outbound Network traffic > 1MBps."
   name                    = "NetworkOutAlarmHigh-AR1"
@@ -105,7 +105,7 @@ data "null_data_source" "alarm_dimensions" {
 }
 
 module "ar2_disk_usage_alarm" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.13.2"
 
   alarm_count              = "2"
   alarm_description        = "High Disk usage."

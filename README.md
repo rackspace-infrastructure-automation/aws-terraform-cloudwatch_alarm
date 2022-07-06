@@ -6,7 +6,7 @@ This module deploys a customized CloudWatch Alarm, for use in generating custome
 
 ```HCL
 module "alarm" {
- source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.6"
+ source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.13.2"
 
  alarm_description        = "High CPU usage."
  comparison_operator      = "GreaterThanThreshold"
@@ -31,9 +31,9 @@ module "alarm" {
 
 Full working references are available at [examples](examples)
 
-## Terraform 0.12 upgrade
+## Terraform 0.13 upgrade
 
-There should be no changes required to move from previous versions of this module to version 0.12.0 or higher.
+There should be no changes required to move from previous versions of this module to version 0.13.0 or higher.
 ## Module variables
 
 The following module variables changes have occurred:
@@ -51,7 +51,7 @@ The following module variables changes have occurred:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 0.13 |
 | aws | >= 2.7.0 |
 
 ## Providers
