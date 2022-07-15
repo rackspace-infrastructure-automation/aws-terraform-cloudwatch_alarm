@@ -51,7 +51,7 @@ The following module variables changes have occurred:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 1.0.0 |
 | aws | >= 2.7.0 |
 
 ## Providers
