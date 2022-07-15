@@ -86,6 +86,7 @@ No Modules.
 | evaluation\_periods | The number of periods over which data is compared to the specified threshold. | `number` | n/a | yes |
 | metric\_name | The name for the alarm's associated metric. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html for supported metrics. | `string` | n/a | yes |
 | name | The descriptive name for the alarm. This name must be unique within the user's AWS account. `name` supercedes the deprecated `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | `""` | no |
+| name\_suffixes | Used to better distinguish similar alarms by replace 001 etc with given suffix. | `list(string)` | `[]` | no |
 | namespace | The namespace for the alarm's associated metric. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html for the list of namespaces. | `string` | n/a | yes |
 | notification\_topic | List of SNS Topic ARNs to use for customer notifications. | `list(string)` | `[]` | no |
 | period | The period in seconds over which the specified statistic is applied. | `number` | `60` | no |
@@ -93,7 +94,8 @@ No Modules.
 | rackspace\_managed | Boolean parameter controlling if instance will be fully managed by Rackspace support teams, created CloudWatch alarms that generate tickets, and utilize Rackspace managed SSM documents. | `bool` | `true` | no |
 | severity | The desired severity of the created Rackspace ticket.  Supported values include: standard, urgent, emergency | `string` | `"standard"` | no |
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
-| threshold | The value against which the specified statistic is compared. | `string` | n/a | yes |
+| threshold | The value against which the specified statistic is compared. [**Deprecated** in favor of `name`]. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | `""` | no |
+| thresholds | The values against which the specified statistic is compared per alarm. `thresholds` supercedes the depreciated `threshold`. Either `name` or `alarm_name` **must** contain a non-default value. | `list(string)` | `[]` | no |
 | treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
 | unit | The unit for the alarm's associated metric | `string` | `null` | no |
 

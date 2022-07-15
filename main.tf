@@ -89,7 +89,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   count = var.alarm_count
 
   alarm_description   = var.alarm_description
-  alarm_name          = var.alarm_count > 1 ? format("%v-%03d", local.alarm_name, count.index + 1) : local.alarm_name
+  alarm_name          = var.alarm_count > 1 ? format("%v-%v", local.alarm_name, length(var.name_suffixes) == 0 ? format("%03d", count.index + 1) : var.name_suffixes[count.index]) : local.alarm_name
   comparison_operator = var.comparison_operator
   dimensions          = var.dimensions[count.index]
   evaluation_periods  = var.evaluation_periods
@@ -97,7 +97,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   namespace           = var.namespace
   period              = var.period
   statistic           = var.statistic
-  threshold           = var.threshold
+  threshold           = length(var.thresholds) == 0 ? var.threshold : var.thresholds[count.index]
   treat_missing_data  = var.treat_missing_data
   unit                = var.unit
 
