@@ -105,3 +105,8 @@ variable "unit" {
   type        = string
   default     = ""
 }
+
+variable "cloudwatch_tags" {
+  type = map
+  default = {}
+}

@@ -1,10 +1,10 @@
 /**
  * # aws-terraform-cloudwatch_alarm
- * 
+ *
  * This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
- * 
+ *
  * ## Basic Usage
- * 
+ *
  * ```HCL
  * module "alarm" {
  *  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-cloudwatch_alarm//?ref=v0.12.1"
@@ -36,15 +36,15 @@
  *
  * There should be no changes required to move from previous versions of this module to version 0.12.0 or higher.
  * ## Module variables
-* 
+*
 * The following module variables changes have occurred:
-* 
+*
 * #### Deprecations
 * - `alarm_name` - marked for deprecation as it no longer meets our style guide standards.
-* 
+*
 * #### Additions
 * - `name` - introduced as a replacement for `alarm_name` to better align with our style guide standards.
-* 
+*
 * #### Removals
 * - None
 */
@@ -99,7 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   statistic           = var.statistic
   threshold           = var.threshold
   unit                = var.unit
-
+  tags                = var.cloudwatch_tags
   alarm_actions = concat(
     local.rackspace_alarm_actions[local.rackspace_alarm_config],
     local.customer_alarm_actions[local.customer_alarm_config],
