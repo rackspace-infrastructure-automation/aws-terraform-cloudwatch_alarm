@@ -79,6 +79,11 @@ locals {
     urgent    = "arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:rackspace-support-urgent"
     emergency = "arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:rackspace-support-emergency"
   }
+
+  tags = {
+    Environment     = var.environment
+    ServiceProvider = "Rackspace"
+  }
 }
 
 data "aws_caller_identity" "current" {}
@@ -100,6 +105,7 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   threshold           = var.threshold
   treat_missing_data  = var.treat_missing_data
   unit                = var.unit
+  tags                = merge(var.tags, local.tags)
 
   alarm_actions = concat(
     local.rackspace_alarm_actions[local.rackspace_alarm_config],

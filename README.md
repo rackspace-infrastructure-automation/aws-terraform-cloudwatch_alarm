@@ -83,6 +83,7 @@ No Modules.
 | customer\_alarms\_cleared | Specifies whether alarms will notify customers when returning to an OK status. | `bool` | `false` | no |
 | customer\_alarms\_enabled | Specifies whether alarms will notify customers.  Automatically enabled if rackspace\_managed is set to false | `bool` | `false` | no |
 | dimensions | The list of dimensions for the alarm's associated metric. For the list of available dimensions see the AWS documentation here. | `list(map(string))` | n/a | yes |
+| environment | Application environment for which this network is being created. Preferred value are Development, Integration, PreProduction, Production, QA, Staging, or Test | `string` | `"Development"` | no |
 | evaluation\_periods | The number of periods over which data is compared to the specified threshold. | `number` | n/a | yes |
 | metric\_name | The name for the alarm's associated metric. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html for supported metrics. | `string` | n/a | yes |
 | name | The descriptive name for the alarm. This name must be unique within the user's AWS account. `name` supercedes the deprecated `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value. | `string` | `""` | no |
@@ -93,6 +94,7 @@ No Modules.
 | rackspace\_managed | Boolean parameter controlling if instance will be fully managed by Rackspace support teams, created CloudWatch alarms that generate tickets, and utilize Rackspace managed SSM documents. | `bool` | `true` | no |
 | severity | The desired severity of the created Rackspace ticket.  Supported values include: standard, urgent, emergency | `string` | `"standard"` | no |
 | statistic | The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum | `string` | `"Average"` | no |
+| tags | A map of tags to apply to all resources. | `map(string)` | `{}` | no |
 | threshold | The value against which the specified statistic is compared. | `string` | n/a | yes |
 | treat\_missing\_data | Sets how this alarm is to handle missing data points. The following values are supported: missing, ignore, breaching and notBreaching. Defaults to missing | `string` | `"missing"` | no |
 | unit | The unit for the alarm's associated metric | `string` | `null` | no |
