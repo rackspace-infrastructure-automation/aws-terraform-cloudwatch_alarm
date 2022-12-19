@@ -10,6 +10,18 @@ variable "alarm_description" {
   default     = ""
 }
 
+variable "environment" {
+  description = "Application environment for which this network is being created. Preferred value are Development, Integration, PreProduction, Production, QA, Staging, or Test"
+  type        = string
+  default     = "Development"
+}
+
+variable "tags" {
+  description = "A map of tags to apply to all resources."
+  type        = map(string)
+  default     = {}
+}
+
 variable "alarm_name" {
   description = " The descriptive name for the alarm. This name must be unique within the user's AWS account. [**Deprecated** in favor of `name`]. It will be removed in future releases. `name` supercedes the `alarm_name`. Either `name` or `alarm_name` **must** contain a non-default value."
   type        = string
