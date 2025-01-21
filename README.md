@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This project is end of life. This repo will be deleted on June 2nd 2025.
+
 # aws-terraform-cloudwatch\_alarm
 
 This module deploys a customized CloudWatch Alarm, for use in generating customer notifications or Rackspace support tickets.
